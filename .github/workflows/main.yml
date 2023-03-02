@@ -1,0 +1,20 @@
+# build, test, and ftp deploy a jekyll site
+name: ci:deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: 35.208.125.26
+          username: quadrate_path@furqanshop.com
+          password: ${{ secrets.FTP_PASSWORD }}

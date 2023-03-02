@@ -27,6 +27,11 @@ class Subscribe extends Model
         return $this->belongsTo(Country::class);
     }
 
+    public function customPrice()
+    {
+        return $this->belongsTo(CustomPrice::class, 'custom_price_id');
+    }
+
     public static function booted()
     {
         static::created(function($subscribe) {
@@ -38,8 +43,10 @@ class Subscribe extends Model
             $net_price = $course->price - ($subscribe->discount_value / 100) - 25;
 
             $image_path = '-';
-            if($subscribe->money_transfer_image_path){
-                $image_path = url(Storage::url($subscribe->money_transfer_image_path));
+
+            $discount_reason_image = '-';
+            if ($subscribe->discount_reason_image) {
+                $discount_reason_image = url(Storage::url($subscribe->discount_reason_image));
             }
 
             $googleSheet = new GoogleSheet();
@@ -54,7 +61,11 @@ class Subscribe extends Model
                     $subscribe->payment_id ?? '-', $subscribe->payment_status ?? '-', $subscribe->response_code ?? '-',
                     $subscribe->coupon_code ?? '-', ($subscribe->discount_value/100) ?? '0.0',
                     $subscribe->favorite_time ?? '-',
-                    $subscribe->student->client_zoho_id ?? '-', $price, $net_price
+                    $subscribe->student->client_zoho_id ?? '-', $price, $net_price,
+
+                    $subscribe->customPrice->discount_value ?? '-', $subscribe->customPrice->discount_percent ?? '-',
+                    $subscribe->customPrice->discount_reason ?? '-', $discount_reason_image ?? '-',
+
                 ],
             ];
 
@@ -80,8 +91,10 @@ class Subscribe extends Model
                 $net_price = $course->price - ($subscribe->discount_value / 100) - 25;
 
                 $image_path = '-';
-                if($subscribe->money_transfer_image_path){
-                    $image_path = url(Storage::url($subscribe->money_transfer_image_path));
+
+                $discount_reason_image = '-';
+                if ($subscribe->discount_reason_image) {
+                    $discount_reason_image = url(Storage::url($subscribe->discount_reason_image));
                 }
 
                 $googleSheet = new GoogleSheet();
@@ -95,7 +108,11 @@ class Subscribe extends Model
                         $subscribe->transfer_date ?? '-', $subscribe->bank_reference_number ?? '-', $subscribe->payment_method ?? '-',
                         $subscribe->payment_id ?? '-', $subscribe->payment_status ?? '-', $subscribe->response_code ?? '-', $subscribe->coupon_code ?? '-',
                         ($subscribe->discount_value/100) ?? '0.0', $subscribe->favorite_time ?? '-',
-                        $subscribe->student->client_zoho_id ?? '-', $price, $net_price
+                        $subscribe->student->client_zoho_id ?? '-', $price, $net_price,
+
+                        $subscribe->customPrice->discount_value ?? '-', $subscribe->customPrice->discount_percent ?? '-',
+                        $subscribe->customPrice->discount_reason ?? '-', $discount_reason_image ?? '-',
+
                     ],
                 ];
 

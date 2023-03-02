@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="https://furqanshop.com/new-students/favicon.ico">
 
     <style>
 
@@ -292,9 +293,10 @@
         }
         @endif
 
-                #top-nav-links .nav-item {
+            #top-nav-links .nav-item {
             margin: 5px;
         }
+
         #top-nav-links .nav-item a {
             background: transparent !important;
             border-color: transparent !important;
@@ -303,17 +305,68 @@
             font-weight: bold;
             font-family: Cairo;
         }
+
+        #cover-bg {
+            background-image: url("https://furqanshop.com/new-students/images/logo.jpg");
+            width: 100%;
+            height: 96px;
+            margin-top: 25px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
+        header {
+            background-color: #24408e;
+            width: 100%;
+            height: 60px;
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        header img {
+            margin-right: 10px;
+        }
+
+        @media only screen and (max-width: 600px){
+            #top-nav-links {
+                width: 100%!important;
+                flex-direction: row!important;
+                justify-content: center!important;
+                align-items: center!important;
+            }
+        }
     </style>
 
-    {{--  checkout frame styles  --}}
     <style>*,*::after,*::before{box-sizing:border-box}html{padding:1rem;background-color:#FFF;font-family: 'Cairo', sans-serif;, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif}#payment-form{width:31.5rem;margin:0 auto}iframe{width:100%}.one-liner{display:flex;flex-direction:column}#pay-button{border:none;border-radius:3px;color:#FFF;font-weight:500;height:40px;width:100%;background-color:#13395E;box-shadow:0 1px 3px 0 rgba(19,57,94,0.4)}#pay-button:active{background-color:#0B2A49;box-shadow:0 1px 3px 0 rgba(19,57,94,0.4)}#pay-button:hover{background-color:#15406B;box-shadow:0 2px 5px 0 rgba(19,57,94,0.4)}#pay-button:disabled{background-color:#697887;box-shadow:none}#pay-button:not(:disabled){cursor:pointer}.card-frame{border:solid 1px #13395E;border-radius:3px;width:100%;margin-bottom:8px;height:40px;box-shadow:0 1px 3px 0 rgba(19,57,94,0.2)}.card-frame.frame--rendered{opacity:1}.card-frame.frame--rendered.frame--focus{border:solid 1px #13395E;box-shadow:0 2px 5px 0 rgba(19,57,94,0.15)}.card-frame.frame--rendered.frame--invalid{border:solid 1px #D96830;box-shadow:0 2px 5px 0 rgba(217,104,48,0.15)}.success-payment-message{color:#13395E;line-height:1.4}.token{color:#b35e14;font-size:0.9rem;font-family: 'Cairo', sans-serif;}@media screen and (min-width: 31rem){.one-liner{flex-direction:row}.card-frame{width:318px;margin-bottom:0}#pay-button{width:175px;margin-left:8px}}</style>
 
 </head>
 <body>
 
+<header class="justify-content-between flex-row-reverse">
+    <ul class="navbar-nav d-flex justify-content-between flex-row">
+        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+            <li class="nav-item active">
+                <a class="nav-link font-weight-bold" style="color: white; padding: 0 5px"
+                   href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}"> {{ $properties['native'] }}
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+        @endforeach
+    </ul>
+
+    <a href="https://eservices.fg2020.com/" target="_blank">
+        <img src="https://eservices.fg2020.com/assets/images/nlogo.png" alt="" width="163" height="50">
+    </a>
+</header>
+
 <div class="container-fluid">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-center">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-center" style="margin-top: 70px;">
         <ul class="navbar-nav" id="top-nav-links">
             <li class="nav-item">
                 <a class="btn btn-primary" data-toggle="modal" data-target="#Terms-And-Conditions" href="#">{{ __('Terms And Conditions') }}</a>
@@ -385,27 +438,7 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-
-            <ul class="navbar-nav m-auto">
-                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                    <li class="nav-item active">
-                        <a class="nav-link"
-                           href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}"> {{ $properties['native'] }}
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-
-        </div>
-    </nav>
+    <div id="cover-bg"></div>
 
     <div class="alert alert-danger d-none" id="support-cookies" style="text-align: center;font-weight: bold;">{!! __('Support Cookies') !!}</div>
 
@@ -414,17 +447,17 @@
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                 <h2 id="heading">{{ __('Second semester 2022 - one to one') }}</h2>
 
-{{--                @if(session('success'))--}}
-{{--                    <div class="alert alert-success" role="alert">--}}
-{{--                        {{ session('success') }}--}}
-{{--                    </div>--}}
-{{--                @endif--}}
+                {{--                @if(session('success'))--}}
+                {{--                    <div class="alert alert-success" role="alert">--}}
+                {{--                        {{ session('success') }}--}}
+                {{--                    </div>--}}
+                {{--                @endif--}}
 
-{{--                @if(session('error'))--}}
-{{--                    <div class="alert alert-danger" role="alert">--}}
-{{--                        {{ session('error') }}--}}
-{{--                    </div>--}}
-{{--                @endif--}}
+                {{--                @if(session('error'))--}}
+                {{--                    <div class="alert alert-danger" role="alert">--}}
+                {{--                        {{ session('error') }}--}}
+                {{--                    </div>--}}
+                {{--                @endif--}}
 
                 <form id="msform" action="{{ route('semester.subscribeOneToOne') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -574,6 +607,11 @@
                                 <input type="email" class="form-control" id="std-email-conf" placeholder="{{ __('resubscribe.Confirm Email') }}" required>
                             </div>
 
+                            <div class="form-group text-right d-none" id="discount-reason-image-div">
+                                <label for="discount-reason-image">{{ __('Discount Reason Image') }}</label>
+                                <input type="file" name="discount_reason_image" class="form-control h-100" id="discount-reason-image">
+                            </div>
+
                             <div id="favorite_times_male" class="d-none">
                                 <label for="std-email-conf" class="text-right w-100 label-right">{{ __('Choose your preferred schedule') }}</label>
                                 @foreach($favorite_times_male as $key => $favorite_time)
@@ -629,85 +667,14 @@
                                 <div class="form-check text-right">
                                     <input class="form-check-input w-auto" type="radio" name="payment_method" id="checkout_gateway" value="checkout_gateway">
                                     <label class="form-check-label mr-4" for="checkout_gateway">
-                                        {!! __('Payment via credit card', ['amount' => $course->price]) !!}
+                                        {!! __('Payment via credit card') !!}
+                                        <span id="amount">{{ $course->price }}</span>$
                                     </label>
+                                    <span id="discount-reason" style="color: #24408e;" class="d-block font-weight-bold mt-3"></span>
                                     <img class="text-center d-block" style="width: 38%;margin: auto;margin-top: 9px;" src="{{ asset('card-icons/cards.png') }}" alt="Cards icons">
                                 </div>
 
                                 <br>
-
-                                <div class="form-check text-right">
-                                    <input class="form-check-input w-auto" type="radio" name="payment_method" id="hsbc" value="hsbc">
-                                    <label class="form-check-label mr-4" for="hsbc">
-                                        {{ __('HSBC Bank', ['amount' => $course->price]) }}
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div id="hsbc-section-elements" class="d-none text-right">
-                                <br>
-                                <label>
-                                    <strong>{{ __('resubscribe.Registration method') }}</strong>
-                                </label>
-
-                                <table class="table table-bordered">
-
-                                    <tbody>
-                                    <tr>
-                                        <td>{{ __('resubscribe.Bank name') }}</td>
-                                        <td>The Hongkong and Shanghai Banking Corporation Limited (HSBC)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ __('resubscribe.Bank address') }}</td>
-                                        <td>Queens Road Central Hong Kong 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ __('resubscribe.Swift code') }}</td>
-                                        <td>HSBCHKHHHKH</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ __('resubscribe.Beneficiary Name') }}</td>
-                                        <td>FURQAN GROUP FOR EDUCATION AND IT LIMITED</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ __('resubscribe.Account number') }}</td>
-                                        <td>023832223838</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ __('resubscribe.Account currency') }}</td>
-                                        <td>دولار أمريكي (USD)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ __('resubscribe.Beneficiary address') }}</td>
-                                        <td>Room 409 Beverley Commercial Center Kowloon Hong Kong</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-
-                                <div class="form-group">
-                                    <label for="money_transfer_image_path">{{ __('resubscribe.Choose the transfer picture') }}</label>
-                                    <input type="file" class="form-control" style="height: 50px" name="money_transfer_image_path" id="money_transfer_image_path">
-                                </div>
-
-                                <div class="form-group text-right">
-                                    <label for="bank_name">{{ __('resubscribe.Bank name') }}</label>
-                                    <input type="text" class="form-control" name="bank_name" id="bank_name" placeholder="{{ __('resubscribe.Bank name') }}">
-                                </div>
-
-                                <div class="form-group text-right">
-                                    <label for="account_owner">{{ __('resubscribe.Account holder name (in English as it appears in the bank)') }}</label>
-                                    <input type="text" class="form-control" name="account_owner" id="account_owner" placeholder="{{ __('resubscribe.Account holder name (in English as it appears in the bank)') }}">
-                                </div>
-
-                                <div class="form-group text-right">
-                                    <label for="transfer_date">{{ __('resubscribe.Transfer date') }}</label>
-                                    <input type="date" class="form-control" name="transfer_date" id="transfer_date">
-                                </div>
-
-                                <div class="form-group text-right">
-                                    <label for="bank_reference_number">{{ __('resubscribe.Operation reference number') }}</label>
-                                    <input type="text" class="form-control" name="bank_reference_number" id="bank_reference_number" placeholder="{{ __('resubscribe.Operation reference number') }}">
-                                </div>
 
                             </div>
 
@@ -720,6 +687,12 @@
                     </fieldset>
 
                     <input type="hidden" name="hidden_apply_coupon" id="hidden_apply_coupon">
+
+                    <button class="btn btn-primary d-none" id="pay-button-full-free" style="width: 40%; margin-bottom: 15px; background-color: #f68b32 !important;font-weight: bold; border: transparent;" disabled>
+                        {{ __('resubscribe.Checkout') }}
+                        <i class="fas fa-spinner fa-spin d-none"></i>
+                    </button>
+
                 </form>
 
                 <form id="payment-form" method="POST" action="https://merchant.com/charge-card" class="d-none">
@@ -876,7 +849,11 @@
 
         $(".submit").click(function(){
             return false;
-        })
+        });
+
+        $(document).on('click', 'form #pay-button-full-free', function (e) {
+            $('#pay-button-full-free .fa-spinner').removeClass('d-none');
+        });
 
         $(document).on('click', 'form #apply_coupon_btn', function (e) {
             $('#hidden_apply_coupon').val($('form #apply_coupon').val());
@@ -885,9 +862,24 @@
                 dataType: "json",
                 url: '{{ route('apply.coupon') }}?std_number=' + $('form #std-number').val() + '&code=' + $('form #apply_coupon').val(),
                 success: function (data) {
+                    if(data.price_after_discount == 0){
+                        $('.card-frame').addClass('d-none');
+                        $('#pay-button').addClass('d-none');
+                        $('#pay-button-full-free').removeClass('d-none');
+                        $('#pay-button-full-free').attr('disabled', false);
+                    }else{
+                        $('.card-frame').removeClass('d-none');
+                        $('#pay-button').removeClass('d-none');
+                        $('#pay-button-full-free').addClass('d-none');
+                        $('#pay-button-full-free').attr('disabled', true);
+                    }
                     $('#coupon-description').html("{{ __('resubscribe.discount total is') }}" + data.discount + "$ " + "{{ __('resubscribe.and price after discount is') }}" + data.price_after_discount + "$ ");
                 },
                 error: function (data){
+                    $('.card-frame').removeClass('d-none');
+                    $('#pay-button').removeClass('d-none');
+                    $('#pay-button-full-free').addClass('d-none');
+                    $('#pay-button-full-free').attr('disabled', true);
                     $('#coupon-description').html(data.responseJSON.msg);
                 }
             });
@@ -900,11 +892,33 @@
                 url: '{{ route('semester.registration.getStudentInfo') }}?std_number=' + $('form #std-number').val() + '&std_section=' + $('form #std-section').val() + '&form_type=one_to_one',
                 success: function (data) {
                     $('form #std-name').val(data.name);
+
+                    if(data.discount_reason){
+                        $('form #discount-reason').html('سبب الخصم/ ' + data.discount_reason);
+                    }else{
+                        $('form #discount-reason').html('');
+                    }
+
+                    if(data.discount_reason == 'كفالة'){
+                        $('#discount-reason-image-div').removeClass('d-none');
+                        $('#discount-reason-image').prop('required', true);
+                    }else{
+                        $('#discount-reason-image-div').addClass('d-none');
+                        $('#discount-reason-image').prop('required', false);
+                    }
+
                     $('form #std-name').css('border-color', 'green');
                     $('form #std-name-section .alert').addClass('d-none');
                 },
                 error: function (data){
                     $('form #std-name').val('');
+
+                    $('form #amount').html('-');
+                    $('form #discount-reason').html('');
+
+                    $('#discount-reason-image-div').addClass('d-none');
+                    $('#discount-reason-image').prop('required', false);
+
                     $('form #std-name').attr("placeholder", data.responseJSON.msg);
                     $('form #std-name').attr("title", data.responseJSON.msg);
                     $('form #std-name').css('border-color', 'red');
@@ -914,35 +928,11 @@
             });
         });
 
-        $(document).on('click', 'form #hsbc', function (e) {
-
-            if($('#agree-terms').is(':checked')){
-                $("#hsbc-section-elements").removeClass('d-none');
-                $("#hsbc-section-elements").show();
-                $("#hsbc-section-elements input").prop('required',true);
-
-                $("#payment-form").addClass('d-none');
-
-                $("#submit-main-form").removeAttr('disabled');
-                $("#submit-main-form").removeClass('btn-secondary');
-                $("#submit-main-form").addClass('btn-primary');
-                $("#submit-main-form").removeClass('d-none');
-            }else{
-                e.preventDefault();
-                alert('{{ __('You must agree that the previous information is correct') }}');
-            }
-        });
-
         $(document).on('click', 'form #checkout_gateway', function (e) {
 
             if($('#agree-terms').is(':checked')){
-                $("#hsbc-section-elements").addClass('d-none');
-                $("#hsbc-section-elements").hide();
-                $("#hsbc-section-elements input").removeAttr('required');
-
                 $("#payment-form").removeClass('d-none');
                 $("#submit-main-form").addClass('d-none');
-
             }else{
                 e.preventDefault();
                 alert('{{ __('You must agree that the previous information is correct') }}');
