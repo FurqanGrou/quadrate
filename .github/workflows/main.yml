@@ -3,7 +3,7 @@ name: ci:deploy
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   web-deploy:
     name: 🎉 Deploy
