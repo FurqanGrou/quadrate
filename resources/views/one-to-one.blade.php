@@ -892,6 +892,7 @@
                 url: '{{ route('semester.registration.getStudentInfo') }}?std_number=' + $('form #std-number').val() + '&std_section=' + $('form #std-section').val() + '&form_type=one_to_one',
                 success: function (data) {
                     $('form #std-name').val(data.name);
+                    $('form #amount').html(data.amount);
 
                     if(data.discount_reason){
                         $('form #discount-reason').html('سبب الخصم/ ' + data.discount_reason);
