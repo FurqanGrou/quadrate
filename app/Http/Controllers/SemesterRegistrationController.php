@@ -53,7 +53,7 @@ class SemesterRegistrationController extends Controller
                             'Authorization' => config('checkoutpayment.checkout_sk')
                         ]
                     ]);
-
+ 
                 $data = json_decode($response->getBody()->getContents());
 
                 if ($response->getStatusCode() != 404){
