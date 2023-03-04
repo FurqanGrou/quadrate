@@ -112,9 +112,11 @@ class SemesterRegistrationController extends Controller
                     $coupon->use($subscribe->student_id);
                 }
 
-                $subscribe->student->customPrice->update([
-                    'status' => '0',
-                ]);
+                if($subscribe->student->customPrice) {
+                    $subscribe->student->customPrice->update([
+                        'status' => '0',
+                    ]);
+                }
 
                 $result = $subscribe->update([
                     'payment_status' => 'Captured',
@@ -123,7 +125,20 @@ class SemesterRegistrationController extends Controller
 
                 session()->forget('subscribe_id');
 
-                return view('thank-you', ['countries' => $countries, 'favorite_times_male' => $favorite_times_male , 'favorite_times_female' => $favorite_times_female, 'course' => $course]);
+                return view('thank-you', ['countries' => $countries, 'course' => $course]);
+            }else{
+                if($subscribe->student->customPrice){
+                    $subscribe->student->customPrice->update([
+                        'status' => '0',
+                    ]);
+
+                    $result = $subscribe->update([
+                        'payment_status' => 'Captured',
+                        'response_code' => '-',
+                    ]);
+
+                    session()->forget('subscribe_id');
+                }
             }
 
         }
