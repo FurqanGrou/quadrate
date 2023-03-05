@@ -49,7 +49,7 @@ class Subscribe extends Model
             }
 
             $price = $course->price - $discount_value;
-            $net_price = $course->price - ($subscribe->discount_value / 100) - 25;
+            $net_price = $course->price - ($discount_value / 100) - 25;
 
             $image_path = '-';
 
