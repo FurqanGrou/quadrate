@@ -39,7 +39,16 @@ class Subscribe extends Model
             $created_at_formatted = Carbon::parse($subscribe->created_at)->timezone('Asia/Riyadh')->format('Y-m-d');
 
             $course = Course::query()->where('code', '=', 'fourth_to_fourth')->first();
-            $price = $course->price - ($subscribe->discount_value / 100);
+
+            if (@$subscribe->customPrice->discount_value){
+                $discount_value = ($subscribe->discount_value/100) + $subscribe->customPrice->discount_value;
+            }elseif (@$subscribe->customPrice->discount_percent){
+                $discount_value = ($subscribe->discount_value/100) + ($course->price* ($subscribe->customPrice->discount_percent/100) );
+            }else{
+                $discount_value = ($subscribe->discount_value/100);
+            }
+
+            $price = $course->price - $discount_value;
             $net_price = $course->price - ($subscribe->discount_value / 100) - 25;
 
             $image_path = '-';
@@ -75,10 +84,6 @@ class Subscribe extends Model
                 Notification::route('mail', [$subscribe->email])->notify(new SubscribeNotification($subscribe));
             }
 
-            if ($subscribe->payment_method == 'hsbc'){
-                Notification::route('mail', [$subscribe->email])->notify(new SubscribeNotification($subscribe));
-            }
-
         });
 
         static::updated(function($subscribe) {
@@ -87,7 +92,16 @@ class Subscribe extends Model
                 $created_at_formatted = Carbon::parse($subscribe->created_at)->timezone('Asia/Riyadh')->format('Y-m-d');
 
                 $course = Course::query()->where('code', '=', 'fourth_to_fourth')->first();
-                $price = $course->price - ($subscribe->discount_value / 100);
+
+                if (@$subscribe->customPrice->discount_value){
+                    $discount_value = ($subscribe->discount_value/100) + $subscribe->customPrice->discount_value;
+                }elseif (@$subscribe->customPrice->discount_percent){
+                    $discount_value = ($subscribe->discount_value/100) + ($course->price* ($subscribe->customPrice->discount_percent/100) );
+                }else{
+                    $discount_value = ($subscribe->discount_value/100);
+                }
+
+                $price = $course->price - $discount_value;
                 $net_price = $course->price - ($subscribe->discount_value / 100) - 25;
 
                 $image_path = '-';

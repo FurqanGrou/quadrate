@@ -79,7 +79,7 @@ class SemesterRegistrationController extends Controller
                                 'status' => '0',
                             ]);
                         }
-                        
+
                         session()->flash('success', __('resubscribe.The registration process has been completed successfully'));
                     }else{
                         session()->flash('error', __('resubscribe.Payment failed'));
