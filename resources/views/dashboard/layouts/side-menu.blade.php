@@ -33,7 +33,7 @@
                     <li>
                         <a class="menu-item" href="{{ route('dashboard.favorite-times.create') }}" data-i18n="nav.templates.vert.classic_menu">
                             <i class="ft ft-clock"></i>
-                            عرض جميع الأوقات
+                            اضافة وقت جديد
                         </a>
                     </li>
                 </ul>
